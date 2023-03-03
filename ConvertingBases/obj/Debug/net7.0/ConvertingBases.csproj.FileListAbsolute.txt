@@ -1,0 +1,15 @@
+/Users/msv/Projects/ConvertingBases/ConvertingBases/obj/Debug/net7.0/ConvertingBases.csproj.AssemblyReference.cache
+/Users/msv/Projects/ConvertingBases/ConvertingBases/obj/Debug/net7.0/ConvertingBases.GeneratedMSBuildEditorConfig.editorconfig
+/Users/msv/Projects/ConvertingBases/ConvertingBases/obj/Debug/net7.0/ConvertingBases.AssemblyInfoInputs.cache
+/Users/msv/Projects/ConvertingBases/ConvertingBases/obj/Debug/net7.0/ConvertingBases.AssemblyInfo.cs
+/Users/msv/Projects/ConvertingBases/ConvertingBases/obj/Debug/net7.0/ConvertingBases.csproj.CoreCompileInputs.cache
+/Users/msv/Projects/ConvertingBases/ConvertingBases/bin/Debug/net7.0/ConvertingBases
+/Users/msv/Projects/ConvertingBases/ConvertingBases/bin/Debug/net7.0/ConvertingBases.deps.json
+/Users/msv/Projects/ConvertingBases/ConvertingBases/bin/Debug/net7.0/ConvertingBases.runtimeconfig.json
+/Users/msv/Projects/ConvertingBases/ConvertingBases/bin/Debug/net7.0/ConvertingBases.dll
+/Users/msv/Projects/ConvertingBases/ConvertingBases/bin/Debug/net7.0/ConvertingBases.pdb
+/Users/msv/Projects/ConvertingBases/ConvertingBases/obj/Debug/net7.0/ConvertingBases.dll
+/Users/msv/Projects/ConvertingBases/ConvertingBases/obj/Debug/net7.0/refint/ConvertingBases.dll
+/Users/msv/Projects/ConvertingBases/ConvertingBases/obj/Debug/net7.0/ConvertingBases.pdb
+/Users/msv/Projects/ConvertingBases/ConvertingBases/obj/Debug/net7.0/ConvertingBases.genruntimeconfig.cache
+/Users/msv/Projects/ConvertingBases/ConvertingBases/obj/Debug/net7.0/ref/ConvertingBases.dll
