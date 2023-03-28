@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/msv/Projects/Car park/Car park/Car park.csproj",
-      "projectName": "Car park",
-      "projectPath": "/Users/msv/Projects/Car park/Car park/Car park.csproj",
+      "projectUniqueName": "/Users/msv/Projects/Car park/Car park/CarPark.csproj",
+      "projectName": "CarPark",
+      "projectPath": "/Users/msv/Projects/Car park/Car park/CarPark.csproj",
       "packagesPath": "/Users/msv/.nuget/packages/",
       "outputPath": "/Users/msv/Projects/Car park/Car park/obj/",
       "projectStyle": "PackageReference",
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.200/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.201/RuntimeIdentifierGraph.json"
       }
     }
   }
