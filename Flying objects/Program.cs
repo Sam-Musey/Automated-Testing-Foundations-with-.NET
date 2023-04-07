@@ -7,45 +7,28 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            // Here is a little note about what I didn't accomplish in this task
-            // I created an interface IFlyable, but somehow when I try make my classes inherit this interface it goes wrong (squiggly red line)
+            // Creating an three objects of our classes (Airplane, Bird, Drone)
 
-            // Second issue is as follows
-            // When I apply FlyTo method to an object, it changes its current position
-            // But outside this fuction its current position changes back to its original value
-            // Unfortunately I didn't come up with a solution
+            Airplane airplane1 = new Airplane("Airbus 666", new Coordinates(10, 12, 13));
+            Bird bird1 = new Bird("Owl", new Coordinates(3, 9, 11));
+            Drone drone1 = new Drone("DJI Mini 3 Pro", new Coordinates(22, 33, 44));
 
-            // -----------------------------------------------------//
-            // Creating an object of a bird and testing its functions
+            // Testing FlyTo and GetFlyTime methods
 
-            Console.WriteLine(" --- Testing functions of a bird ---\n");
+            airplane1.FlyTo(55, 54, 96);
+            airplane1.GetFlyTime(3000, 70, 80);
 
-            Bird birdChayka = new Bird("Chayka", new int[] { 5, 10, 9 });
+            bird1.FlyTo(23, 24, 25);
+            bird1.GetFlyTime(34, 45, 56);
 
-            birdChayka.FlyTo(new int[] {6, 7, 8});
-            birdChayka.GetFlyTime(new int[] { 5, 60, 9 });
-            birdChayka.GetFlyTime(new int[] { 6, 61, 8 });
-            Console.WriteLine("\n");
+            drone1.FlyTo(40, 55, 77);
+            drone1.GetFlyTime(75, 45, 15);
 
-            // Creating an object of an airplane and testing its functions
+            // Please, test FlyTo method with your own parameters through console
 
-            Console.WriteLine(" --- Testing functions of an airplane ---\n");
-
-            Airplane airplane1 = new Airplane("Airbus 666", new int[] { 10, 10, 10 });
-            airplane1.FlyTo(new int[] { 30, 30, 30 });
-            airplane1.GetFlyTime(new int[] { 10, 3572, 10 });
-
-            Console.WriteLine("\n");
-
-            // Creating an object of a drone and testing its functions
-
-            Console.WriteLine(" --- Testing functions of a drone ---\n");
-
-            Drone drone1 = new Drone("DJI Mini 3 Pro", new int[] { 10, 10, 10 });
-
-            drone1.FlyTo(new int[] { 10, 65, 10 });
-            drone1.GetFlyTime(new int[] { 10, 80, 10 });
-            drone1.GetFlyTime(new int[] { 10, 111, 10 });
+            airplane1.FlyTo();
+            //bird1.FlyTo();
+            //drone1.FlyTo();
 
             Console.ReadKey();
         }

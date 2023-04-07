@@ -3,87 +3,117 @@ using System.Text;
 
 namespace Flying_objects
 {
-	public class Drone
+    public class Drone : FlyingObject, IFlyable
     {
-        public string droneModel;
-        public int[] dronePosition = new int[3];
+        private int droneSpeed = 35;
+        private string droneName;
 
-        public string DroneModel { get; set; }
-        public int[] DronePosition { get; set; }
-
-        public Drone(string droneModel, int[] dronePosition)
+        public Drone(string droneName, Coordinates CurrentPosition)
         {
-            this.DroneModel = droneModel;
-            this.DronePosition = dronePosition;
+            this.DroneName = droneName;
+            this.CurrentPosition = CurrentPosition;
         }
 
-        // --- Implementing FlyTo method ---
-
-        public int[] FlyTo(int[] newDestination)
+        public int DroneSpeed
         {
-            int[] dronePosition = newDestination;
-            string dronePositionString;
-            dronePositionString = dronePosition[0].ToString() + ", " + dronePosition[1].ToString() + ", " + dronePosition[2].ToString();
-
-            Console.WriteLine($"The drone {this.DroneModel} flew away to a new place with following coordinates - {dronePositionString}.");
-            return dronePosition;
+            get { return droneSpeed; }
         }
+        public string DroneName { get; set; }
 
-        // --- Implementing GetFlyTime method ---
-
-        public double GetFlyTime(int[] newDestination)
+        // FlyTo method is interactive (user can input coordinates through the console)
+        public Coordinates FlyTo(int X = 0, int Y = 0, int Z = 0)
         {
-            // Setting the speed of a drone at 35 km/h
-            int droneSpeed = 35;
+            Console.WriteLine($"At the moment the drone {this.DroneName} is at the location with following coordinates - {CurrentPosition.X}, {CurrentPosition.Y}, {CurrentPosition.Z}.");
 
-            // Converting array (where 3 coordinates are stored) to a string, so that we can print the position of a drone and a destination
-            string dronePositionString;
-            dronePositionString = this.DronePosition[0].ToString() + ", " + this.DronePosition[1].ToString() + ", " + this.DronePosition[2].ToString();
-            string newDestinationString;
-            newDestinationString = newDestination[0].ToString() + ", " + newDestination[1].ToString() + ", " + newDestination[2].ToString();
-
-            // Calculating the distance between a new destination and the current position of a drone
-            double distanceToNewDestination =
-            (Math.Sqrt(
-                (newDestination[0] - this.DronePosition[0]) * (newDestination[0] - this.DronePosition[0])
-                +
-                (newDestination[1] - this.DronePosition[1]) * (newDestination[1] - this.DronePosition[1])
-                +
-                (newDestination[2] - this.DronePosition[2]) * (newDestination[2] - this.DronePosition[2])
-                ));
-
-            distanceToNewDestination = Math.Round(distanceToNewDestination, 2);
-
-            // Setting restriction on distance. The drone can not fly more than 100 km without recharging
-            if (distanceToNewDestination > 100)
+            if (X == 0)
             {
-                Console.WriteLine($"The drone cannot fly thus far! It will run out of battery!\nIts maximum flying distance is 100 km. But you are trying to make it fly {distanceToNewDestination} km away!\nSo, please, set a new destination.");
-                return distanceToNewDestination;
+                Console.WriteLine($"You decided to make it fly to a new destination." +
+                    "\nPlease enter three coordinates of the desired location." +
+                    "\n-> The X coordinate will be: ");
+                X = int.Parse(Console.ReadLine());
+                this.NewPosition.X = X;
+            }
+            else this.NewPosition.X = X;
+
+            if (Y == 0)
+            {
+                Console.WriteLine("-> The Y coodinate will be: ");
+                Y = int.Parse(Console.ReadLine());
+                this.NewPosition.Y = Y;
+            }
+            else this.NewPosition.Y = Y;
+
+            if (Z == 0)
+            {
+                Console.WriteLine("-> The Z coordinate will be: ");
+                Z = int.Parse(Console.ReadLine());
+                this.NewPosition.Z = Z;
+            }
+            else this.NewPosition.Z = Z;
+
+            double distance = CalculateDistance(NewPosition.X, NewPosition.Y, NewPosition.Z);
+
+            if (distance > 100)
+            {
+                Console.WriteLine($"The drone cannot fly thus far! It will run out of battery!\nIts maximum flying distance is 100 km. But you are trying to make it fly {distance} km away!\nSo, please, set a new destination.");
             }
 
-            // Calculating flytime in minutes
-            double flyTime = distanceToNewDestination / droneSpeed * 60;
-            flyTime = Math.Round(flyTime, 2);
-
-            // Drone hovers in the air every 10 minutes of flight for 1 minute. So we should compensate this factor
-            int compensatingTime;
-            if (flyTime%10 == 0)
+            else
             {
-                compensatingTime = (int)(flyTime / 10 - 1);
+                this.CurrentPosition.X = this.NewPosition.X;
+                this.CurrentPosition.Y = this.NewPosition.Y;
+                this.CurrentPosition.Z = this.NewPosition.Z;
+                Console.WriteLine($"Great! The drone {this.DroneName} has just been moved to a new place with following coordinates - {CurrentPosition.X}, {CurrentPosition.Y}, {CurrentPosition.Z}.\n");
+            }
+
+            return CurrentPosition;
+        }
+
+        // GetFlyTime is not interactive
+        public void GetFlyTime(int X, int Y, int Z)
+        {
+            this.NewPosition.X = X;
+            this.NewPosition.Y = Y;
+            this.NewPosition.Z = Z;
+
+            double distance = CalculateDistance(NewPosition.X, NewPosition.Y, NewPosition.Z);
+
+            if (distance > 100)
+            {
+                Console.WriteLine($"We remind you that maximum flying distance of a drone is 100 km." +
+                    $"\nThe distance to the destination that you defined is {distance} km away!" +
+                    $"\nSo, you will have to change the destination if you want to move the drone.\n");
             }
             else
             {
-                compensatingTime = (int)(flyTime / 10);
+                // Calculating flytime in minutes
+                double flyTime = distance / droneSpeed * 60;
+                flyTime = Math.Round(flyTime, 2);
+
+                // Drone hovers in the air every 10 minutes of flight for 1 minute. So we should compensate this factor
+                // My logic for compensation is following
+                // A drone flies for 10 mins and then stops and hovers for 1 min
+                // So for every 10 mins we have to add 1 min. But if flytime is divisible by 10, we do not have to add another 1 min
+                // E.g. flytime is 60 mins.
+                // In this example we should compensate only 5 mins because a drone will hover only 5 times, it doesn't have to hover for the 6th time.
+                // But if flytime is 61 mins, a drone will hovers 6 times, so we should add 6 more minutes to flytime.
+
+                int compensatingTime;
+                if (flyTime % 10 == 0)
+                {
+                    compensatingTime = (int)(flyTime / 10 - 1);
+                }
+                else
+                {
+                    compensatingTime = (int)(flyTime / 10);
+                }
+
+                flyTime += compensatingTime;
+                flyTime = Math.Round(flyTime, 2);
+
+                Console.WriteLine($"The distance from the current position of the drone {this.DroneName} (coordinates are {CurrentPosition.X}, {CurrentPosition.Y}, {CurrentPosition.Z}) to the new place with coordinates ({Destination.X}, {Destination.Y}, {Destination.Z}) is {distance} km.\n" +
+                    $"It will take {this.DroneName} {flyTime} minutes to fly to this place with the speed of {this.DroneSpeed} km/h.\n");
             }
-
-            flyTime = flyTime + compensatingTime;
-
-            // Outputting the information about speed and flytime
-            Console.WriteLine($"The distance from the current position of the drone " +
-                $"{this.DroneModel} (coordinates are {dronePositionString}) to the new place with coordinates ({newDestinationString}) is {distanceToNewDestination} kms.\n" +
-            $"It will take {this.DroneModel} {flyTime} minutes to fly to this place with the speed of {droneSpeed} km/h.");
-
-            return flyTime;
         }
     }
 }

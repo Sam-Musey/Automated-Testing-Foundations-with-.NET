@@ -1,11 +1,10 @@
 ﻿using System;
 namespace Flying_objects
 {
-	interface IFlyable
-	{
-        void FlyTo();
-		void GetFlyTime();
-		
-	}
+    public interface IFlyable
+    {
+        Coordinates FlyTo(int X, int Y, int Z);
+        void GetFlyTime(int X, int Y, int Z);
+    }
 }
 

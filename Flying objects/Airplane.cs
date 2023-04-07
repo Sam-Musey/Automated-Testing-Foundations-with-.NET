@@ -1,72 +1,100 @@
 ﻿using System;
 namespace Flying_objects
 {
-    public class Airplane
+    public class Airplane : FlyingObject, IFlyable
     {
-        public string airplaneName;
-        public int[] airplanePosition = new int[3];
+        private int airplaneSpeed = 200;
+        private string airplaneName;
 
-        public string AirplaneName { get; set; }
-        public int[] AirplanePosition { get; set; }
-         
-        public Airplane(string airplaneName, int[] airplanePosition)
+        public Airplane(string airplaneName, Coordinates CurrentPosition)
         {
             this.AirplaneName = airplaneName;
-            this.AirplanePosition = airplanePosition;
+            this.CurrentPosition = CurrentPosition;
         }
 
-        // --- Implementing FlyTo method ---
-
-        public int[] FlyTo(int[] newDestination)
+        public int AirplaneSpeed
         {
-            int[] airplanePosition = newDestination;
-            string airplanePositionString;
-            airplanePositionString = airplanePosition[0].ToString() + ", " + airplanePosition[1].ToString() + ", " + airplanePosition[2].ToString();
+            get { return airplaneSpeed; }
+        }
+        public string AirplaneName { get; set; }
 
-            Console.WriteLine($"The airplane {this.AirplaneName} arrived to a new place with following coordinates - {airplanePositionString}.");
-            //Console.WriteLine(airplanePosition);
-            return airplanePosition;
+        // FlyTo method is interactive (user can input coordinates through the console)
+        public Coordinates FlyTo(int X = 0, int Y = 0, int Z = 0)
+        {
+            Console.WriteLine($"At the moment the airplane {this.AirplaneName} is at the location with following coordinates - {CurrentPosition.X}, {CurrentPosition.Y}, {CurrentPosition.Z}.");
+            if (X == 0)
+            {
+                Console.WriteLine("\nYou decided to make it fly to a new destination." +
+                    "\nPlease enter three coordinates of the desired location." +
+                    "\n-> The X coordinate will be: ");
+                X = int.Parse(Console.ReadLine());
+                this.NewPosition.X = X;
+            }
+            else this.NewPosition.X = X;
+
+            if (Y == 0)
+            {
+                Console.WriteLine("-> The Y coodinate will be: ");
+                Y = int.Parse(Console.ReadLine());
+                this.NewPosition.Y = Y;
+            }
+            else this.NewPosition.Y = Y;
+
+            if (Z == 0)
+            {
+                Console.WriteLine("-> The Z coordinate will be: ");
+                Z = int.Parse(Console.ReadLine());
+                this.NewPosition.Z = Z;
+            }
+            else this.NewPosition.Z = Z;
+
+            double distance = CalculateDistance(NewPosition.X, NewPosition.Y, NewPosition.Z);
+
+            if (distance > 6000)
+            {
+                Console.WriteLine($"The maximum range of an airplane is 6000 km. " +
+                    $"\nThe distance to the destination that you defined is {distance} km away!" +
+                    $"\nSo, please, set a new destination.");
+            }
+            else
+            {
+                this.CurrentPosition.X = this.NewPosition.X;
+                this.CurrentPosition.Y = this.NewPosition.Y;
+                this.CurrentPosition.Z = this.NewPosition.Z;
+                Console.WriteLine($"Great! The airplane {this.AirplaneName} has just arrived to a new place with following coordinates - {CurrentPosition.X}, {CurrentPosition.Y}, {CurrentPosition.Z}.\n");
+            }
+            return CurrentPosition;
         }
 
-        // --- Implementing GetFlyTime method ---
-
-        public double GetFlyTime(int[] newDestination)
+        // GetFlyTime is not interactive
+        public void GetFlyTime(int X, int Y, int Z)
         {
-            // Converting array (where 3 coordinates are stored) to a string, so that we can print the position of an airplane and its destination
-            string airplanePositionString;
-            airplanePositionString = this.AirplanePosition[0].ToString() + ", " + this.AirplanePosition[1].ToString() + ", " + this.AirplanePosition[2].ToString();
-            string newDestinationString;
-            newDestinationString = newDestination[0].ToString() + ", " + newDestination[1].ToString() + ", " + newDestination[2].ToString();
+            this.NewPosition.X = X;
+            this.NewPosition.Y = Y;
+            this.NewPosition.Z = Z;
 
-            // Calculating the distance between a new destination and the current position of an airplane
-            double distanceToNewDestination =
-            (Math.Sqrt(
-                (newDestination[0] - this.AirplanePosition[0]) * (newDestination[0] - this.AirplanePosition[0])
-                +
-                (newDestination[1] - this.AirplanePosition[1]) * (newDestination[1] - this.AirplanePosition[1])
-                +
-                (newDestination[2] - this.AirplanePosition[2]) * (newDestination[2] - this.AirplanePosition[2])
-                ));
+            double distance = CalculateDistance(NewPosition.X, NewPosition.Y, NewPosition.Z);
 
-            distanceToNewDestination = Math.Round(distanceToNewDestination, 2);
+            if (distance > 6000)
+            {
+                Console.WriteLine($"We remind you that maximum range of an airplane is 6000 km." +
+                    $"\nThe distance to the destination that you defined is {distance} km away!" +
+                    $"\nSo, you will have to change the destination if you want to move the airplane.\n");
+            }
+            else
+            {
+                // Calculating the acceleration of an airplane (using the formula "a = V / t")
+                double airplaneAcceleration = 10 / (2.0 / 41);
 
-            // Setting speed of an airplane as 200 km/h
-            int airplaneSpeed = 200;
+                // Calculating flytime (in minutes) using formula "S = u*t + 0.5*a*t^2"
+                // To calculate t (time) from this formula we have to solve quadratic equation "x = (-b +/- √(b^2 - 4ac)) / 2a"
 
-            // Calculating the acceleration of an airplane (using the formula "a = V / t")
-            double airplaneAcceleration = 10 / (2.0 / 41);
+                double flyTime = (-200 + Math.Sqrt(200 * 200 - 4 * 0.5 * airplaneAcceleration * (-distance))) / 205;
+                flyTime = Math.Round(flyTime * 60, 2);
 
-            // Calculating flytime (in minutes) using formula "S = u*t + 0.5*a*t^2"
-            // To calculate t (time) from this formula we have to solve quadratic equation "x = (-b +/- √(b^2 - 4ac)) / 2a"
-
-            double flyTime = (-200 + Math.Sqrt(200*200 - 4 * 0.5 * airplaneAcceleration * (-distanceToNewDestination))) / 205;
-            flyTime = Math.Round(flyTime*60, 2);
-
-            // Outputting the information about speed and flytime
-            Console.WriteLine($"The distance from the current position of the airplane {this.AirplaneName} (coordinates are {airplanePositionString}) to the new place with coordinates ({newDestinationString}) is {distanceToNewDestination} kms.\n" +
-            $"It will take {this.AirplaneName} {flyTime} minutes to get to this place with the speed of {airplaneSpeed} km/h and acceleration {airplaneAcceleration} km/h^2.");
-
-            return flyTime;
+                Console.WriteLine($"The distance from the current position of the airplane {this.AirplaneName} (coordinates are {CurrentPosition.X}, {CurrentPosition.Y}, {CurrentPosition.Z}) to the new place with coordinates ({Destination.X}, {Destination.Y}, {Destination.Z}) is {distance} km.\n" +
+                    $"It will take {this.AirplaneName} {flyTime} minutes to get to this place with the speed of {this.AirplaneSpeed} km/h and acceleration {airplaneAcceleration} km/h^2.\n");
+            }
         }
     }
 }
