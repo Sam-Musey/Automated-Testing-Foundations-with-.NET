@@ -8,4 +8,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Parts\" />
+    <None Remove="Vehicles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Parts\" />
+    <Folder Include="Vehicles\" />
+  </ItemGroup>
 </Project>

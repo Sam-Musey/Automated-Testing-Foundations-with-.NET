@@ -1,33 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <engine_info_of_buses_and_trucks>
-  <engine_info_of_buses>
-    <bus_model>Volvo 9700</bus_model>
-    <bus_horsepower>13000</bus_horsepower>
-    <bus_engine_type>D13</bus_engine_type>
-    <bus_engine_serial_number>882802304</bus_engine_serial_number>
-  </engine_info_of_buses>
-  <engine_info_of_buses>
-    <bus_model>Mercedes-Benz Citaro</bus_model>
-    <bus_horsepower>7700</bus_horsepower>
-    <bus_engine_type>L6</bus_engine_type>
-    <bus_engine_serial_number>882810304</bus_engine_serial_number>
-  </engine_info_of_buses>
-  <engine_info_of_trucks>
-    <truck_model>GMC Sierra 2500HD</truck_model>
-    <truck_horsepower>6600</truck_horsepower>
-    <truck_engine_type>V8</truck_engine_type>
-    <truck_engine_serial_number>454784859</truck_engine_serial_number>
-  </engine_info_of_trucks>
-  <engine_info_of_trucks>
-    <truck_model>Ford F-150</truck_model>
-    <truck_horsepower>4950</truck_horsepower>
-    <truck_engine_type>V8</truck_engine_type>
-    <truck_engine_serial_number>454794857</truck_engine_serial_number>
-  </engine_info_of_trucks>
-  <engine_info_of_trucks>
-    <truck_model>Toyota Tacoma</truck_model>
-    <truck_horsepower>2700</truck_horsepower>
-    <truck_engine_type>L4</truck_engine_type>
-    <truck_engine_serial_number>454794859</truck_engine_serial_number>
-  </engine_info_of_trucks>
+  <The_vehicle>
+    <model>Volvo 9700</model>
+    <horsepower>13000</horsepower>
+    <engine_type>D13</engine_type>
+    <engine_serial_number>882802304</engine_serial_number>
+  </The_vehicle>
+  <The_vehicle>
+    <model>GMC Sierra 2500HD</model>
+    <horsepower>6600</horsepower>
+    <engine_type>V8</engine_type>
+    <engine_serial_number>454784859</engine_serial_number>
+  </The_vehicle>
+  <The_vehicle>
+    <model>Ford F-150</model>
+    <horsepower>4950</horsepower>
+    <engine_type>V8</engine_type>
+    <engine_serial_number>454794857</engine_serial_number>
+  </The_vehicle>
+  <The_vehicle>
+    <model>Mercedes-Benz Citaro</model>
+    <horsepower>7700</horsepower>
+    <engine_type>L6</engine_type>
+    <engine_serial_number>882810304</engine_serial_number>
+  </The_vehicle>
+  <The_vehicle>
+    <model>Toyota Tacoma</model>
+    <horsepower>2700</horsepower>
+    <engine_type>L4</engine_type>
+    <engine_serial_number>454794859</engine_serial_number>
+  </The_vehicle>
 </engine_info_of_buses_and_trucks>
